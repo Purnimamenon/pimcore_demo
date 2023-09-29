@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Traffic Website</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+  ul{
+  background-color: #0774b5;
+  width: 100%;
+  padding: 0 2%;
+  margin: 0 0;
+  float: left;
+  border-bottom: 2px solid #423e55;
+  }
+
+ul li a{
+   background-color: #0774b5;
+   width: auto;
+  padding: 18px 8px;
+  margin: 0 0;
+  float: left;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  line-height: 130%;
+  text-align: center;
+  font-family: 'Sintony'
+  }
+
+
+ul li a:hover {
+  text-decoration: none;
+}
+.traffic-info{
+    font-size:24px;
+    color:#3f6eb2;;
+}
+
+.content img{
+ width:123%;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+table{
+  width: 50%;
+  font-size: 166%;
+  align:center;
+  margin-left:35%;
+}
+tr:first-child{
+    background: lightgrey;
+    color:red;
+   
+}
+table, th, td {
+  border: 1px solid;
+}
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      {# <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">BENGALURU TRAFFIC</a></li> #}
+      {# <li><a href="#">BTRAC</a></li>
+      <li><a href="#">ENFORCEMENT AUTOMATION</a></li>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">LATEST ANNOUNCEMENT</a></li>
+      <li><a href="#">COMPLAINT & SUGGESTIONS</a></li> #}
+      {# <li><a href="#">CONTACT US</a></li>
+      <li><a href="#">ABOUT US</a></li>
+      <li><a href="#">BLOG</a></li> #}
+      
+    </ul>
+  </div>
+</nav>
+  
+<div class="container">
+<div class="body-content" style="margin-left:-36%">
+  {{ block('content') }}
+  </div>
+</div>
+
+</body>
+</html>
