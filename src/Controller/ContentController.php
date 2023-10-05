@@ -22,7 +22,7 @@ class ContentController extends FrontendController
         return [];
     }
 
-    
+
     public function productAction(Request $request): Response
     {
         return $this->render('content/product.html.twig');
