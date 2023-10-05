@@ -1,0 +1,171 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+
+   {% if blockData is iterable %}
+    <ul>
+        {% for blockItem in blockData %}
+        <br>
+            <li style="font-size:136%;">
+                {# title #}
+                <strong>Title:</strong> {{ blockItem['title'].data }}<br>
+
+                {# number #}
+                <strong>Number:</strong> {{ blockItem['number'].data }}<br>
+
+                {# date #}
+                <strong>Date:</strong> {{ blockItem['currentdate'].data }}<br>
+
+                <strong>Payment status:</strong> 
+                {# boolean select #}
+                {% if blockItem['paymentstatus'].data == 'true' %}
+                <strong>Paid</strong>
+                {% else %}
+                 <strong>Unpaid</strong>
+                {% endif %}
+                <br>
+                
+                {# select box #}
+                <strong>Vehicle Type:</strong> {{ blockItem['vehicletype'].data }}<br> 
+                {# country #}
+                <strong>Country:</strong> {{ blockItem['Country'].data }}<br> 
+                {# Languages #}
+                <strong>Languages:</strong> {{ blockItem['Languages'].data }}<br> 
+
+                {# Multiselect #}
+                <strong>Bangalore Divisions:</strong>
+                {% if blockItem['Divisions'].data is iterable %}
+                        {{ blockItem['Divisions'].data|join(', ') }}<br>
+                {% endif %}
+            
+               <br>
+                {# Image #}
+                <strong>Traffic Rule Image:</strong><br>
+                <img src="{{ blockItem['trafficImage'].data }}" alt="Traffic Image" style="width: 25%;">
+                <br><br>
+                
+                {# Email #}
+                <strong>Contact Email:</strong> {{ blockItem['email'].data }}<br> <br>
+
+            {% set traffictableData = blockItem['traffictable'].data %}
+
+           {# table #}
+            {% if traffictableData is iterable %}
+                <table style="border: 1px solid;">
+                    <thead>
+                        <tr style="border: 1px solid;">
+                            {% for header in traffictableData[0] %}
+                                <th style="border: 1px solid;">{{ header }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in traffictableData|slice(1) %}
+                            <tr style="border: 1px solid;">
+                                {% for cell in row %}
+                                    <td style="border: 1px solid;">{{ cell }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No table data available.</p>
+            {% endif %}
+            <br>
+            {# colors  #}
+            {% if blockItem['displaysignals'].data == 1 %}
+            <strong>Signal Colors: 'red' indicates that the vehicles must stop, 'yellow' means that the vehicles must slow down and finally 'green' means to go ahead.</strong> {% set rgbaColorData = blockItem['signals'].data %}
+            
+           <div style="width: 100px; height: 100px; background-color: {{ blockItem['signals'].data }};" ></div>
+           
+           <br>
+            {% else %}
+                
+                <p>No data To show!!</p>
+            {% endif %}
+           
+            {# link #}
+
+                {% set followusData = blockItem['Followus'].data %}
+
+                    {% if followusData is not null %}
+                        {% set linkText = followusData.getText() %}
+                        {% set linkUrl = followusData.getDirect() %}
+                        {% set linkTarget = followusData.getTarget() %}
+
+                        {% if linkUrl is not empty %}
+                         Follow us on :     <a href="{{ linkUrl }}" target="{{ linkTarget }}">{{ linkText }}</a>
+                        {% else %}
+                            <p>No link available.</p>
+                        {% endif %}
+                    {% else %}
+                        <p>No Link data available.</p>
+                    {% endif %}
+
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No block data available.</p>
+{% endif %}
+<br><br>
+
+{% for group in dataToPass %}
+        <h1 style="color: red;">Classification Name: {{ group.configurationName }}</h1>
+        <ul>
+            {% for key in group.keys %}
+                <li style="font-size:136%;">
+                    <strong> {{ key.title }} :</strong>
+                    <strong> {{ key.value }}</strong>
+                    {# <p>Is Quantity Value: {{ key.isQuantityValue ? 'Yes' : 'No' }}</p> #}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+<br>
+<h1 style="color: red;">Field Collections:</h1>
+ <ul>
+
+        {% for item in fieldToPass %}
+
+            <li style="font-size:136%;">
+                Input: {{ item.inputField }}<br>
+                Number : {{ item.numberField }}<br>
+
+{#                {% if item.video is not null %}#}
+{#                    {% if item.video.data is not null %}#}
+{#                        <video width="560" height="315" controls>#}
+{#                            <source src="/gallery/{{ item.video.data.filename }}" type="video/mp4">#}
+{#                            Your browser does not support the video tag.#}
+{#                        </video>#}
+{#                    {% else %}#}
+{#                        <!-- Handle the case where video data is null or not available -->#}
+{#                        <p>No video data available</p>#}
+{#                    {% endif %}#}
+{#                {% else %}#}
+{#                    <!-- Handle the case where item.video is null -->#}
+{#                    <p>No video available</p>#}
+{#                {% endif %}#}
+
+
+            </li>
+{#            {{ dump(item.video.data) }}#}
+        {% endfor %}
+    </ul>
+<br>
+ <h2 style="color: red;">Object Bricks: </h2>
+{% if object.vehic.items is not empty %}
+
+    {% for brick in object.vehic.items %}
+      <div style="font-size:136%;">
+        <strong>Color:</strong>{{ brick.color }} <br>
+        <strong>Specifications:</strong>{{ brick.specifications }} <br>
+        <strong>Fueltype:</strong>{{ brick.fueltype }}
+      </div>
+    {% endfor %}
+{% else %}
+    No items found
+{% endif %}
+
+
+{% endblock %}  
