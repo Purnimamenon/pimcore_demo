@@ -9,12 +9,12 @@
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => 'hotel',
-   'name' => 'Hotel',
+   'id' => 'custom',
+   'name' => 'Custom',
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1696591230,
+   'modificationDate' => 1696836722,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -43,6 +43,57 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'datatype' => 'layout',
      'children' => 
     array (
+      0 => 
+      \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+         'name' => 'Layout',
+         'type' => NULL,
+         'region' => NULL,
+         'title' => '',
+         'width' => '',
+         'height' => '',
+         'collapsible' => false,
+         'collapsed' => false,
+         'bodyStyle' => '',
+         'datatype' => 'layout',
+         'children' => 
+        array (
+          0 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Layout\Text::__set_state(array(
+             'name' => 'customText',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => '',
+             'width' => '',
+             'height' => '',
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'children' => 
+            array (
+            ),
+             'locked' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'fieldtype' => 'text',
+             'html' => '',
+             'renderingClass' => '@AppBundle\\Helpers\\CustomRenderer',
+             'renderingData' => 'some extra data',
+             'border' => false,
+          )),
+        ),
+         'locked' => false,
+         'blockedVarsForExport' => 
+        array (
+        ),
+         'fieldtype' => 'panel',
+         'layout' => NULL,
+         'border' => false,
+         'icon' => '',
+         'labelWidth' => 100,
+         'labelAlign' => 'left',
+      )),
     ),
      'locked' => false,
      'blockedVarsForExport' => 
@@ -55,7 +106,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'icon' => '/bundles/pimcoreadmin/img/twemoji/1f3ec.svg',
+   'icon' => '',
    'group' => '',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',

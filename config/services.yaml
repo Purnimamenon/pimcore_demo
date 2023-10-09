@@ -30,6 +30,12 @@ parameters:
     #pimcore_executable_dot: /usr/bin/dot
 
 services:
+    AppBundle\Helpers\CustomRenderer:
+        class: AppBundle\Helpers\CustomRenderer
+        public: true
+
+    App\Website\LinkGenerator\LocationLinkGenerator:
+        public: true
     # default configuration for services in *this* file
     _defaults:
         # automatically injects dependencies in your services

@@ -1,8 +1,33 @@
-{% extends 'layout.html.twig' %}
+{% extends 'menu.html.twig' %}
 {% block content %}
 
+    {% set navStartNode = document.getProperty('navigationRoot') %}
+    {% if not navStartNode is instanceof('\\Pimcore\\Model\\Document\\Page') %}
+        {% set navStartNode = pimcore_document(1) %}
+    {% endif %}
+
+    {% set mainNavigation = pimcore_build_nav({
+        active: document,
+        root: navStartNode
+    }) %}
+
+    {# later you can render the navigation #}
+    <div class="my-menu">
+        {# you can use array for ulClass to provide depth level classes #}
+        {{ pimcore_render_nav(mainNavigation, 'menu', 'renderMenu', {
+            maxDepth: 2,
+            ulClass: {
+                0: 'nav navbar-nav',
+                1: 'nav navbar-nav-one',
+                2: 'nav navbar-nav-two'
+            }
+        }) }}
+
+
+    </div>
+
    {% if blockData is iterable %}
-    <ul>
+    <ul style="background-color: white;">
         {% for blockItem in blockData %}
         <br>
             <li style="font-size:136%;">
@@ -94,7 +119,7 @@
                         {% set linkTarget = followusData.getTarget() %}
 
                         {% if linkUrl is not empty %}
-                         Follow us on :     <a href="{{ linkUrl }}" target="{{ linkTarget }}">{{ linkText }}</a>
+                         Follow us on :     <a href="{{ linkUrl }}" target="{{ linkTarget }}" style="background-color: white;color: blue;">{{ linkText }}</a>
                         {% else %}
                             <p>No link available.</p>
                         {% endif %}
@@ -112,7 +137,7 @@
 
 {% for group in dataToPass %}
         <h1 style="color: red;">Classification Name: {{ group.configurationName }}</h1>
-        <ul>
+        <ul style="background-color: white;">
             {% for key in group.keys %}
                 <li style="font-size:136%;">
                     <strong> {{ key.title }} :</strong>
@@ -124,7 +149,7 @@
     {% endfor %}
 <br>
 <h1 style="color: red;">Field Collections:</h1>
- <ul>
+ <ul style="background-color: white;">
 
         {% for item in fieldToPass %}
 
