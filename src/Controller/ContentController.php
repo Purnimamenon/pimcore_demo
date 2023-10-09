@@ -2,17 +2,21 @@
 
 namespace App\Controller;
 
+namespace App\Website\LinkGenerator;
 use Pimcore\Controller\FrontendController;
 use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Pimcore\Model\Asset;
 use Pimcore\Model\DataObject\Block;
-use Pimcore\Model\DataObject\Service;
+use Pimcore\Model\DataObject\Incident;
+use Pimcore\Model\DataObject\Location;
+
+//use Pimcore\Model\DataObject\Service;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Model\DataObject;
-use Pimcore\Model\Document;
+//use Pimcore\Model\Document;
 
 class ContentController extends FrontendController
 {
@@ -40,7 +44,28 @@ class ContentController extends FrontendController
         return $this->render('content/contact.html.twig');
     }
 
-   #[Route('/testblock')]
+    public function IncidentAction(Request $request): Response
+    {
+        $class = DataObject\ClassDefinition::getById('incident');
+        $fields = $class->getFieldDefinitions();
+
+        foreach ($fields as $field) {
+            $field->setLocked(true);
+        }
+
+        $class->save();
+
+        $getrelation = Incident::getById(7);
+        $getlocation = Location::getById(8);
+        $getrelation->setPlaceid($getlocation);
+//         echo '<pre>';
+//         print_r($getrelation);
+//         echo '</pre>';
+//         die;
+        return $this->render('content/incidents.html.twig',['getrelation' => $getrelation]);
+    }
+
+    #[Route('/testblock')]
     public function BlogAction(Request $request): Response
     {
 
@@ -52,9 +77,9 @@ class ContentController extends FrontendController
 
         $dataToPass = [];
         $fieldToPass = [];
-        $brickToPass = [];
 
-       //setting DATA OF OBJECT BRICK using API
+
+        //setting DATA OF OBJECT BRICK using API
         $object = Block::getById(6);
         $object->getVehic()->getVehicledef()->setColor("Grey");
         $object->save();
@@ -75,7 +100,7 @@ class ContentController extends FrontendController
         $fieldCollection = $object->getTestContents();
 
         foreach ($fieldCollection as $item) {
-
+//            $item->setLocked(true);
             // Retrieve data from the field collection item
             $data = [
                 'inputField' => $item->getInputField(),
@@ -111,10 +136,10 @@ class ContentController extends FrontendController
                 $keysData[] = $keyData;
             }
 
-                $groupData['keys'] = $keysData;
-                $dataToPass[] = $groupData;
-            }
-            $blockData = $object->getBlock();
+            $groupData['keys'] = $keysData;
+            $dataToPass[] = $groupData;
+        }
+        $blockData = $object->getBlock();
 
 
 
@@ -125,17 +150,17 @@ class ContentController extends FrontendController
 
 
     public function myGalleryAction(Request $request): array
-   {
-    if ('asset' === $request->get('type')) {
-        $asset = Asset::getById((int) $request->get('id'));
-        if ('folder' === $asset->getType()) {
-            return [
-                'assets' => $asset->getChildren()
-            ];
+    {
+        if ('asset' === $request->get('type')) {
+            $asset = Asset::getById((int) $request->get('id'));
+            if ('folder' === $asset->getType()) {
+                return [
+                    'assets' => $asset->getChildren()
+                ];
+            }
         }
-    }
 
-    return [];
-   }
+        return [];
+    }
 
 }

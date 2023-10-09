@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Inheritance: no
- * Variants: no
+ * Inheritance: yes
+ * Variants: yes
  *
  * Fields Summary:
  * - sku [input]
@@ -18,7 +18,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1696508414,
+   'modificationDate' => 1696851643,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -30,8 +30,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'encryptedTables' => 
   array (
   ),
-   'allowInherit' => false,
-   'allowVariants' => false,
+   'allowInherit' => true,
+   'allowVariants' => true,
    'showVariants' => false,
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -216,7 +216,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'icon' => '',
+   'icon' => '/bundles/pimcoreadmin/img/twemoji/1f455.svg',
    'group' => '',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
