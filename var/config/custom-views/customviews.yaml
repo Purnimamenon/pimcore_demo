@@ -1,0 +1,42 @@
+##var/config/custom-views/customviews.yaml
+#
+#pimcore:
+#    custom_views:
+#        definitions:
+#            c3da6659-c8b3-f3ed-2eda-70b2d3756730:
+#                name: Magazine
+#                treetype: document
+#                position: right
+#                rootfolder: /Custom
+#                showroot: true
+#                sort: -12
+#                treeContextMenu:
+#                    document:
+#                        items:
+#                            add: true
+#                            addSnippet: true
+#                            addLink: true
+#                            addEmail: true
+#                            addHardlink: true
+#                            addFolder: true
+#                            paste: true
+#                            pasteCut: true
+#                            copy: true
+#                            cut: true
+#                            rename: true
+#                            unpublish: true
+#                            publish: true
+#                            delete: true
+#                            open: true
+#                            convert: true
+#                            searchAndMove: true
+#                            useAsSite: true
+#                            editSite: true
+#                            removeSite: true
+#                            lock: true
+#                            unlock: true
+#                            lockAndPropagate: true
+#                            unlockAndPropagate: true
+#                            reload: true
+#                icon: /bundles/pimcoreadmin/img/flat-color-icons/reading.svg
+#                where: "(type = 'folder' OR (type = 'page' and `key` NOT LIKE '%%g%%' OR type = 'link'))"

@@ -1,0 +1,59 @@
+{% extends 'menu.html.twig' %}
+{% block content %}
+
+    <h1>{{ pimcore_input("headline", {"width": 540}) }}</h1>
+
+    {% set navStartNode = document.getProperty('navigationRoot') %}
+    {% if not navStartNode is instanceof('\\Pimcore\\Model\\Document\\Page') %}
+        {% set navStartNode = pimcore_document(1) %}
+    {% endif %}
+
+    {% set mainNavigation = pimcore_build_nav({
+        active: document,
+        root: navStartNode
+    }) %}
+
+    {# later you can render the navigation #}
+    <div class="my-menu">
+        {# you can use array for ulClass to provide depth level classes #}
+        {{ pimcore_render_nav(mainNavigation, 'menu', 'renderMenu', {
+            maxDepth: 2,
+            ulClass: {
+                0: 'nav navbar-nav',
+                1: 'nav navbar-nav-one',
+                2: 'nav navbar-nav-two'
+            }
+        }) }}
+
+
+    </div>
+
+    <div class="incident-info">
+        {% if editmode %}
+            {{ pimcore_relation("incident") }}
+        {% else %}
+            {% set incident = pimcore_relation("incident").element %}
+            {% if incident %}
+                <h1 style="font-size: 255%">Incident Details</h1>
+                <div class="content" style="font-size: 145%">
+
+
+                    <ul style="background-color: yellow;">
+
+                        <li><strong>Incident Date:</strong> {{ getrelation.incidentdate.format('Y-m-d H:i:s') }}</li>
+                        <li><strong>Incident Description:</strong> {{ getrelation.description }}</li>
+                        <li><strong>Location Name:</strong> {{ getrelation.placeid.name }}</li>
+                        <li><strong>Location Description:</strong> {{ getrelation.placeid.descriptionarea }}</li>
+                        <li><strong>LOCATION ID:</strong> {{ getrelation.placeid.locationid }}</li>
+
+{#                        <li><strong>Place Name:</strong> {{ getrelation.placeid.name }}</li>#}
+                        <!-- Add more fields as needed -->
+                    </ul>
+
+
+{#                    {{ product.description|raw }}#}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

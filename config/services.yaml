@@ -30,6 +30,9 @@ parameters:
     #pimcore_executable_dot: /usr/bin/dot
 
 services:
+    AppBundle\Helpers\CustomRenderer:
+        class: AppBundle\Helpers\CustomRenderer
+        public: true
     # default configuration for services in *this* file
     _defaults:
         # automatically injects dependencies in your services
@@ -73,3 +76,6 @@ services:
     # App\EventListener\TestListener:
     #     tags:
     #         - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onObjectPreUpdate }
+    ## link generators ###
+    App\Website\TestGenerator:
+        public: true

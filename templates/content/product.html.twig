@@ -14,8 +14,15 @@
                         {{ product.picture.thumbnail("content").html|raw }}
                     {% endif %}
 
+{#                    {{ dump(product) }}#}
                     {{ product.description|raw }}
+
+                   
                 </div>
+
+    <ul>
+        {# <li><a href=" {{ link }}"> {{ link }}</a></li> #}
+    </ul>
             {% endif %}
         {% endif %}
     </div>

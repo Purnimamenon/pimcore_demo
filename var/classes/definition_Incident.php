@@ -5,18 +5,19 @@
  * Variants: no
  *
  * Fields Summary:
- * - trafficimage [image]
- * - Caption [input]
+ * - incidentdate [date]
+ * - description [textarea]
+ * - placeid [manyToOneRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => '2',
-   'name' => 'Traffic',
+   'id' => 'incident',
+   'name' => 'Incident',
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1695899879,
+   'modificationDate' => 1696942131,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -60,37 +61,14 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-             'name' => 'trafficimage',
-             'title' => 'Trafficimage',
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+             'name' => 'incidentdate',
+             'title' => 'Incidentdate',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'uploadPath' => '',
-             'width' => '',
-             'height' => '',
-          )),
-          1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'Caption',
-             'title' => 'Caption',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
+             'locked' => true,
              'style' => '',
              'permissions' => NULL,
              'fieldtype' => '',
@@ -102,15 +80,76 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
             ),
              'defaultValue' => NULL,
-             'columnLength' => 190,
-             'regex' => '',
-             'regexFlags' => 
+             'useCurrentDate' => false,
+             'columnType' => 'bigint(20)',
+             'defaultValueGenerator' => '',
+          )),
+          1 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
+             'name' => 'description',
+             'title' => 'Description',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => true,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
             array (
             ),
-             'unique' => false,
+             'maxLength' => NULL,
              'showCharCount' => false,
+             'excludeFromSearchIndex' => false,
+             'height' => '',
              'width' => '',
-             'defaultValueGenerator' => '',
+          )),
+          2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+             'name' => 'placeid',
+             'title' => 'Placeid',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => true,
+             'style' => '',
+             'permissions' => NULL,
+             'fieldtype' => '',
+             'relationType' => true,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'Location',
+              ),
+            ),
+             'displayMode' => 'grid',
+             'pathFormatterClass' => '',
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => true,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
+            array (
+            ),
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+            ),
+             'width' => '',
           )),
         ),
          'locked' => false,
@@ -136,7 +175,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'icon' => '',
+   'icon' => '/bundles/pimcoreadmin/img/twemoji/26a0.svg',
    'group' => '',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',

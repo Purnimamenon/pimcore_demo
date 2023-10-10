@@ -34,13 +34,13 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1696501691,
+   'modificationDate' => 1696851623,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
-   'implementsInterfaces' => '',
+   'implementsInterfaces' => '\\App\\Model\\Block\\BlockInterface',
    'listingParentClass' => '',
-   'useTraits' => '',
+   'useTraits' => '\\App\\Traits\\BlockTraits',
    'listingUseTraits' => '',
    'encryption' => false,
    'encryptedTables' => 
@@ -380,6 +380,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
                  'blockedVarsForExport' => 
                 array (
                 ),
+                 'options' => NULL,
                  'defaultValue' => NULL,
                  'optionsProviderClass' => NULL,
                  'optionsProviderData' => NULL,
@@ -810,7 +811,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'icon' => '',
+   'icon' => '/bundles/pimcoreadmin/img/flat-color-icons/four-squares.svg',
    'group' => '',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '',
@@ -843,32 +844,6 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'enableGridLocking' => false,
    'deletedDataComponents' => 
   array (
-    0 => 
-    \Pimcore\Model\DataObject\ClassDefinition\Data\Objectbricks::__set_state(array(
-       'name' => 'vehicebrickinfo',
-       'title' => 'Vehicebrickinfo',
-       'tooltip' => '',
-       'mandatory' => false,
-       'noteditable' => false,
-       'index' => false,
-       'locked' => false,
-       'style' => '',
-       'permissions' => NULL,
-       'fieldtype' => '',
-       'relationType' => false,
-       'invisible' => false,
-       'visibleGridView' => false,
-       'visibleSearch' => false,
-       'blockedVarsForExport' => 
-      array (
-      ),
-       'allowedTypes' => 
-      array (
-        0 => 'Vehicledef',
-      ),
-       'maxItems' => NULL,
-       'border' => false,
-    )),
   ),
    'blockedVarsForExport' => 
   array (
