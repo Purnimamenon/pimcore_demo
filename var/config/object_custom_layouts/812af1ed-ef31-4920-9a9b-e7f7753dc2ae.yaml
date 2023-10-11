@@ -1,0 +1,101 @@
+pimcore:
+    objects:
+        custom_layouts:
+            definitions:
+                812af1ed-ef31-4920-9a9b-e7f7753dc2ae:
+                    id: 812af1ed-ef31-4920-9a9b-e7f7753dc2ae
+                    name: loc
+                    description: ''
+                    creationDate: 1696846965
+                    modificationDate: 1696846977
+                    userOwner: 2
+                    classId: location
+                    layoutDefinitions:
+                        name: pimcore_root
+                        type: null
+                        region: null
+                        title: null
+                        width: 0
+                        height: 0
+                        collapsible: false
+                        collapsed: false
+                        bodyStyle: null
+                        datatype: layout
+                        children:
+                            -
+                                name: Layout
+                                type: null
+                                region: null
+                                title: ''
+                                width: ''
+                                height: ''
+                                collapsible: false
+                                collapsed: false
+                                bodyStyle: ''
+                                datatype: layout
+                                children:
+                                    -
+                                        name: name
+                                        title: Name
+                                        tooltip: ''
+                                        mandatory: false
+                                        noteditable: false
+                                        index: false
+                                        locked: false
+                                        style: ''
+                                        permissions: null
+                                        fieldtype: input
+                                        relationType: false
+                                        invisible: false
+                                        visibleGridView: false
+                                        visibleSearch: false
+                                        defaultValue: null
+                                        columnLength: 190
+                                        regex: ''
+                                        regexFlags: {  }
+                                        unique: false
+                                        showCharCount: false
+                                        width: ''
+                                        defaultValueGenerator: ''
+                                        datatype: data
+                                    -
+                                        name: locationid
+                                        title: Locationid
+                                        tooltip: ''
+                                        mandatory: false
+                                        noteditable: false
+                                        index: false
+                                        locked: false
+                                        style: ''
+                                        permissions: null
+                                        fieldtype: numeric
+                                        relationType: false
+                                        invisible: false
+                                        visibleGridView: false
+                                        visibleSearch: false
+                                        defaultValue: null
+                                        integer: false
+                                        unsigned: false
+                                        minValue: null
+                                        maxValue: null
+                                        unique: false
+                                        decimalSize: null
+                                        decimalPrecision: null
+                                        width: ''
+                                        defaultValueGenerator: ''
+                                        datatype: data
+                                locked: false
+                                fieldtype: panel
+                                layout: null
+                                border: false
+                                icon: ''
+                                labelWidth: 100
+                                labelAlign: left
+                        locked: false
+                        fieldtype: panel
+                        layout: null
+                        border: false
+                        icon: null
+                        labelWidth: 100
+                        labelAlign: left
+                    default: 0

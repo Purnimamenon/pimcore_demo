@@ -1,0 +1,15 @@
+pimcore:
+    assets:
+        video:
+            thumbnails:
+                definitions:
+                    VideoTransformations:
+                        items: {  }
+                        medias: {  }
+                        name: VideoTransformations
+                        description: ''
+                        group: ''
+                        videoBitrate: 600
+                        audioBitrate: 128
+                        modificationDate: 1697004950
+                        creationDate: 1697004513

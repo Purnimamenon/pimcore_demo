@@ -1,24 +1,23 @@
 <?php
 
 /**
- * Inheritance: yes
- * Variants: yes
+ * Inheritance: no
+ * Variants: no
  *
  * Fields Summary:
- * - sku [input]
- * - name [input]
- * - description [wysiwyg]
- * - picture [image]
+ * - incidentdate [date]
+ * - description [textarea]
+ * - placeid [manyToOneRelation]
  */
 
 return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'dao' => NULL,
-   'id' => '1',
-   'name' => 'Product',
+   'id' => 'incident',
+   'name' => 'Incident',
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1697001692,
+   'modificationDate' => 1697020379,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -30,8 +29,8 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'encryptedTables' => 
   array (
   ),
-   'allowInherit' => true,
-   'allowVariants' => true,
+   'allowInherit' => false,
+   'allowVariants' => false,
    'showVariants' => false,
    'layoutDefinitions' => 
   \Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
@@ -62,14 +61,14 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
          'children' => 
         array (
           0 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'sku',
-             'title' => 'Sku',
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+             'name' => 'incidentdate',
+             'title' => 'Incidentdate',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => false,
+             'locked' => true,
              'style' => '',
              'permissions' => NULL,
              'fieldtype' => '',
@@ -81,55 +80,19 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
             array (
             ),
              'defaultValue' => NULL,
-             'columnLength' => 190,
-             'regex' => '',
-             'regexFlags' => 
-            array (
-            ),
-             'unique' => false,
-             'showCharCount' => false,
-             'width' => '',
+             'useCurrentDate' => false,
+             'columnType' => 'bigint(20)',
              'defaultValueGenerator' => '',
           )),
           1 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
-             'name' => 'name',
-             'title' => 'Name',
-             'tooltip' => '',
-             'mandatory' => false,
-             'noteditable' => false,
-             'index' => false,
-             'locked' => false,
-             'style' => '',
-             'permissions' => NULL,
-             'fieldtype' => '',
-             'relationType' => false,
-             'invisible' => false,
-             'visibleGridView' => false,
-             'visibleSearch' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'defaultValue' => NULL,
-             'columnLength' => 190,
-             'regex' => '',
-             'regexFlags' => 
-            array (
-            ),
-             'unique' => false,
-             'showCharCount' => false,
-             'width' => '',
-             'defaultValueGenerator' => '',
-          )),
-          2 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Wysiwyg::__set_state(array(
+          \Pimcore\Model\DataObject\ClassDefinition\Data\Textarea::__set_state(array(
              'name' => 'description',
              'title' => 'Description',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => false,
+             'locked' => true,
              'style' => '',
              'permissions' => NULL,
              'fieldtype' => '',
@@ -140,57 +103,53 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'blockedVarsForExport' => 
             array (
             ),
-             'toolbarConfig' => '',
+             'maxLength' => NULL,
+             'showCharCount' => false,
              'excludeFromSearchIndex' => false,
-             'maxCharacters' => '',
              'height' => '',
              'width' => '',
           )),
-          3 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
-             'name' => 'picture',
-             'title' => 'Picture',
+          2 => 
+          \Pimcore\Model\DataObject\ClassDefinition\Data\ManyToOneRelation::__set_state(array(
+             'name' => 'placeid',
+             'title' => 'Placeid',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,
              'index' => false,
-             'locked' => false,
+             'locked' => true,
              'style' => '',
              'permissions' => NULL,
              'fieldtype' => '',
-             'relationType' => false,
+             'relationType' => true,
              'invisible' => false,
              'visibleGridView' => false,
              'visibleSearch' => false,
              'blockedVarsForExport' => 
             array (
             ),
-             'uploadPath' => '',
+             'classes' => 
+            array (
+              0 => 
+              array (
+                'classes' => 'Location',
+              ),
+            ),
+             'displayMode' => 'grid',
+             'pathFormatterClass' => '',
+             'assetInlineDownloadAllowed' => false,
+             'assetUploadPath' => '',
+             'allowToClearRelation' => true,
+             'objectsAllowed' => true,
+             'assetsAllowed' => false,
+             'assetTypes' => 
+            array (
+            ),
+             'documentsAllowed' => false,
+             'documentTypes' => 
+            array (
+            ),
              'width' => '',
-             'height' => '',
-          )),
-          4 => 
-          \Pimcore\Model\DataObject\ClassDefinition\Layout\Iframe::__set_state(array(
-             'name' => 'iframe',
-             'type' => NULL,
-             'region' => NULL,
-             'title' => 'Product Iframe',
-             'width' => 800,
-             'height' => 300,
-             'collapsible' => false,
-             'collapsed' => false,
-             'bodyStyle' => NULL,
-             'datatype' => 'layout',
-             'children' => 
-            array (
-            ),
-             'locked' => false,
-             'blockedVarsForExport' => 
-            array (
-            ),
-             'fieldtype' => 'iframe',
-             'iframeUrl' => '/Producthome/',
-             'renderingData' => 'test data',
           )),
         ),
          'locked' => false,
@@ -216,11 +175,11 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
      'labelWidth' => 100,
      'labelAlign' => 'left',
   )),
-   'icon' => '/bundles/pimcoreadmin/img/twemoji/1f455.svg',
+   'icon' => '/bundles/pimcoreadmin/img/twemoji/26a0.svg',
    'group' => '',
    'showAppLoggerTab' => false,
-   'linkGeneratorReference' => '@App\\Website\\TestGenerator',
-   'previewGeneratorReference' => '@App\\Service\\PreviewParamProvider\\ProductPreviewParamProvider',
+   'linkGeneratorReference' => '',
+   'previewGeneratorReference' => '',
    'compositeIndices' => 
   array (
   ),

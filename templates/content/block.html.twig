@@ -1,0 +1,218 @@
+{% extends 'menu.html.twig' %}
+{% block content %}
+
+    {% set navStartNode = document.getProperty('navigationRoot') %}
+    {% if not navStartNode is instanceof('\\Pimcore\\Model\\Document\\Page') %}
+        {% set navStartNode = pimcore_document(1) %}
+    {% endif %}
+
+    {% set mainNavigation = pimcore_build_nav({
+        active: document,
+        root: navStartNode
+    }) %}
+
+    {# later you can render the navigation #}
+    <div class="my-menu">
+        {# you can use array for ulClass to provide depth level classes #}
+        {{ pimcore_render_nav(mainNavigation, 'menu', 'renderMenu', {
+            maxDepth: 2,
+            ulClass: {
+                0: 'nav navbar-nav',
+                1: 'nav navbar-nav-one',
+                2: 'nav navbar-nav-two'
+            }
+        }) }}
+
+
+    </div>
+
+{# {% set documentLanguage = document.getProperty('language') %} #}
+
+
+   {% if blockData is iterable %}
+    <ul style="background-color: white;">
+        {% for blockItem in blockData %}
+        <br>
+            <li style="font-size:136%;">
+                {# title #}
+                <strong>Title:</strong> {{ blockItem['title'].data }}<br>
+
+                {# number #}
+                <strong>Number:</strong> {{ blockItem['number'].data }}<br>
+
+                {# date #}
+                <strong>Date:</strong> {{ blockItem['currentdate'].data }}<br>
+
+                <strong>Payment status:</strong> 
+                {# boolean select #}
+                {% if blockItem['paymentstatus'].data == 'true' %}
+                <strong>Paid</strong>
+                {% else %}
+                 <strong>Unpaid</strong>
+                {% endif %}
+                <br>
+                
+                {# select box #}
+                <strong>Vehicle Type:</strong> {{ blockItem['vehicletype'].data }}<br> 
+                {# country #}
+                <strong>Country:</strong> {{ blockItem['Country'].data }}<br> 
+                {# Languages #}
+                <strong>Languages:</strong> {{ blockItem['Languages'].data }}<br> 
+
+                {# Multiselect #}
+                <strong>Bangalore Divisions:</strong>
+                {% if blockItem['Divisions'].data is iterable %}
+                        {{ blockItem['Divisions'].data|join(', ') }}<br>
+                {% endif %}
+            
+               <br>
+                {# Image #}
+                <strong>Traffic Rule Image:</strong><br>
+                <img src="{{ blockItem['trafficImage'].data }}" alt="Traffic Image" style="width: 25%;">
+                <br><br>
+                
+                {# Email #}
+                <strong>Contact Email:</strong> {{ blockItem['email'].data }}<br> <br>
+
+            {% set traffictableData = blockItem['traffictable'].data %}
+
+           {# table #}
+            {% if traffictableData is iterable %}
+                <table style="border: 1px solid;">
+                    <thead>
+                        <tr style="border: 1px solid;">
+                            {% for header in traffictableData[0] %}
+                                <th style="border: 1px solid;">{{ header }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in traffictableData|slice(1) %}
+                            <tr style="border: 1px solid;">
+                                {% for cell in row %}
+                                    <td style="border: 1px solid;">{{ cell }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No table data available.</p>
+            {% endif %}
+            <br>
+            {# colors  #}
+            {% if blockItem['displaysignals'].data == 1 %}
+            <strong>Signal Colors: 'red' indicates that the vehicles must stop, 'yellow' means that the vehicles must slow down and finally 'green' means to go ahead.</strong> {% set rgbaColorData = blockItem['signals'].data %}
+            
+           <div style="width: 100px; height: 100px; background-color: {{ blockItem['signals'].data }};" ></div>
+           
+           <br>
+            {% else %}
+                
+                <p>No data To show!!</p>
+            {% endif %}
+           
+            {# link #}
+
+                {% set followusData = blockItem['Followus'].data %}
+
+                    {% if followusData is not null %}
+                        {% set linkText = followusData.getText() %}
+                        {% set linkUrl = followusData.getDirect() %}
+                        {% set linkTarget = followusData.getTarget() %}
+
+                        {% if linkUrl is not empty %}
+                         Follow us on :     <a href="{{ linkUrl }}" target="{{ linkTarget }}" style="background-color: white;color: blue;">{{ linkText }}</a>
+                        {% else %}
+                            <p>No link available.</p>
+                        {% endif %}
+                    {% else %}
+                        <p>No Link data available.</p>
+                    {% endif %}
+
+            </li>
+ 
+<br>
+<br>
+
+{# Language Translation #}
+{% set localfields = blockItem['localizedfields'].data %}
+
+                    {% if localfields is defined and language is defined %}
+                         {% set translation = localfields.items[language].translate ?? '' %}
+    <p style="font-size:170%">  Translated Word: <b>{{ translation }}</b></p>
+{% else %}
+  <p>  <b> Translation not available</b> </p>
+{% endif %}
+{# {{ dump(localfields.items[language].translate) }} #}
+
+
+{% endfor %}
+    </ul>
+{% else %}
+    <p>No block data available.</p>
+{% endif %}
+
+<br><br>
+<br><br>
+
+
+{% for group in dataToPass %}
+        <h1 style="color: red;">Classification Name: {{ group.configurationName }}</h1>
+        <ul style="background-color: white;">
+            {% for key in group.keys %}
+                <li style="font-size:136%;">
+                    <strong> {{ key.title }} :</strong>
+                    <strong> {{ key.value }}</strong>
+                    {# <p>Is Quantity Value: {{ key.isQuantityValue ? 'Yes' : 'No' }}</p> #}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+<br>
+<h1 style="color: red;">Field Collections:</h1>
+ <ul style="background-color: white;">
+
+        {% for item in fieldToPass %}
+
+            <li style="font-size:136%;">
+                Input: {{ item.inputField }}<br>
+                Number : {{ item.numberField }}<br>
+
+{#                {% if item.video is not null %}#}
+{#                    {% if item.video.data is not null %}#}
+{#                        <video width="560" height="315" controls>#}
+{#                            <source src="/gallery/{{ item.video.data.filename }}" type="video/mp4">#}
+{#                            Your browser does not support the video tag.#}
+{#                        </video>#}
+{#                    {% else %}#}
+{#                        <!-- Handle the case where video data is null or not available -->#}
+{#                        <p>No video data available</p>#}
+{#                    {% endif %}#}
+{#                {% else %}#}
+{#                    <!-- Handle the case where item.video is null -->#}
+{#                    <p>No video available</p>#}
+{#                {% endif %}#}
+
+
+            </li>
+{#            {{ dump(item.video.data) }}#}
+        {% endfor %}
+    </ul>
+<br>
+ <h2 style="color: red;">Object Bricks: </h2>
+{% if object.vehic.items is not empty %}
+
+    {% for brick in object.vehic.items %}
+      <div style="font-size:136%;">
+        <strong>Color:</strong>{{ brick.color }} <br>
+        <strong>Specifications:</strong>{{ brick.specifications }} <br>
+        <strong>Fueltype:</strong>{{ brick.fueltype }}
+      </div>
+    {% endfor %}
+{% else %}
+    No items found
+{% endif %}
+
+
+{% endblock %}  

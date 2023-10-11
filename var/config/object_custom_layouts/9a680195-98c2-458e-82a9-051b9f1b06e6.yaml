@@ -1,0 +1,14 @@
+pimcore:
+    objects:
+        custom_layouts:
+            definitions:
+                9a680195-98c2-458e-82a9-051b9f1b06e6:
+                    id: 9a680195-98c2-458e-82a9-051b9f1b06e6
+                    name: Retreat
+                    description: ''
+                    creationDate: 1696846305
+                    modificationDate: 1696846305
+                    userOwner: 2
+                    classId: '1'
+                    layoutDefinitions: null
+                    default: 0

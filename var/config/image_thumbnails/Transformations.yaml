@@ -1,0 +1,42 @@
+pimcore:
+    assets:
+        image:
+            thumbnails:
+                definitions:
+                    Transformations:
+                        items:
+                            -
+                                method: frame
+                                arguments:
+                                    width: 400
+                                    height: 400
+                                    forceResize: false
+                            -
+                                method: setBackgroundColor
+                                arguments:
+                                    color: '#ff6600'
+                            -
+                                method: roundCorners
+                                arguments:
+                                    width: 10
+                                    height: 10
+                            -
+                                method: contain
+                                arguments:
+                                    width: 450
+                                    height: 450
+                                    forceResize: false
+                        medias: {  }
+                        name: Transformations
+                        description: ''
+                        group: ''
+                        format: SOURCE
+                        quality: 85
+                        highResolution: null
+                        preserveColor: false
+                        preserveMetaData: false
+                        rasterizeSVG: false
+                        downloadable: false
+                        modificationDate: 1697004397
+                        creationDate: 1696939935
+                        preserveAnimation: false

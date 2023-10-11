@@ -1,0 +1,322 @@
+{# {% extends 'layout.html.twig' %} #}
+{% extends 'menu.html.twig' %}
+
+{% block content %}
+{# {% set documentLanguage = document.getProperty('language') %} #}
+
+{% if not document is defined or not document %}
+    {% set document = pimcore_document(1) %}
+{% endif %}
+
+
+{% set navStartNode = document.getProperty('navigationRoot') %}
+{% if not navStartNode is instanceof('\\Pimcore\\Model\\Document\\Page') %}
+    {% set navStartNode = pimcore_document(1) %}
+{% endif %}
+
+{% set mainNavigation = pimcore_build_nav({
+    active: document,
+    root: navStartNode
+}) %}
+
+{# later you can render the navigation #}
+<div class="my-menu">
+    {# you can use array for ulClass to provide depth level classes #}
+    {{ pimcore_render_nav(mainNavigation, 'menu', 'renderMenu', {
+        maxDepth: 2,
+        ulClass: {
+            0: 'nav navbar-nav',
+            1: 'nav navbar-nav-one',
+            2: 'nav navbar-nav-two'
+        }
+    }) }}
+
+    {# alternatively, you can use 'default' key to apply class on all depth levels #}
+    {# {{ pimcore_render_nav(mainNavigation, 'menu', 'renderMenu', {
+            maxDepth: 2,
+            ulClass: {
+                default: 'nav navbar-nav'
+            }
+    }) }} #}
+</div>
+
+{# AREA editable #}
+<div class="main-content">
+     {{ 
+        pimcore_areablock("content", {
+        "allowed": ["test-brick"]
+       })   
+     }}
+</div>
+<br><br>
+{# LINK editable #}
+<p style="font-size:175%">
+    {{ "Visit our" | trans }}
+    {{ pimcore_link('blogLink') }}
+</p>
+
+
+
+{# BLOCK editable #}
+ 
+{% for i in pimcore_block('contentblock').iterator %}
+    <h2>{{ pimcore_input('subline') }}</h2>
+    {{ pimcore_wysiwyg('content') }}
+{% endfor %}
+
+
+{# INPUT editable #}
+
+<h2>
+    {{ pimcore_input("headerLine", {'width': 540}) }}
+</h2>
+<br>
+
+<div style="font-size:170%">
+<p style="animation: blinker 1.5s linear infinite;color:red;">NOTE:</padding>
+{# SELECT editable #}
+
+{% if editmode %}
+Registration Certificate (RC):
+    {{ pimcore_select("valid_for", {
+            "store": [
+                ["15 Years", "15 YEARS"],
+                ["20 years", "20 years"]
+            ],
+            "defaultValue" : "unlimited"
+        }) }}
+{% else %}
+    <p>
+        {{ "RC  VALIDITY" | trans }}:{{ pimcore_select("valid_for").getData() | trans  }} FROM THE DATE OF ISSUE OR 5 YEARS FROM THE DATE OF RENEWAL
+    </p>
+{% endif %}
+
+<br>
+{% if editmode %}
+Pollution Under Control (PUC) certificate:
+    {{ pimcore_select("valid_for1", {
+            "store": [
+                ["1 Year", "1 YEAR"],
+                ["2 Year", "2 YEAR"]
+            ],
+            "defaultValue" : "unlimited"
+        }) }}
+{% else %}
+    <p>
+        {{ "PUC  VALIDITY" | trans }}:{{ pimcore_select("valid_for1").getData() | trans  }} FOR PETROL VEHICLES AND 6 MONTHS FOR DIESEL VEHICLES
+    </p>
+{% endif %}
+</div>
+<br>
+
+
+{# NUMERIC editable #}
+<p style="font-size:170%">
+ {{ pimcore_numeric('myNumber',{
+        "width" : 300,
+        "minValue" : 0,
+        "maxValue" : 100,
+        "decimalPrecision" : 0
+        }) 
+         }} 
+
+    DIVISIONS OF BANGALORE:-
+</p>
+
+
+
+
+
+{# MULTISELECT editable #}
+
+{% if editmode %}
+  <p>  
+  {{ pimcore_multiselect('categories', {
+        'width': 200,
+        'height': 100,
+        'store': [
+            ['EAST', 'EAST DIVISON'],
+            ['WEST', 'WEST DIVISION'],
+            ['NORTH', 'NORTH DIVISION'],
+            ['SOUTH', 'SOUTH DIVISION'],
+
+        ]
+    }) }}
+    </p>
+{% else %}
+    <p style="font-size:170%">{{ 'This site is linked to' | trans }}
+        {% for categoryKey in pimcore_multiselect('categories').getData %}
+            <span>
+            {{ categoryKey | trans }}
+        </span>
+        {% endfor %}
+
+
+       
+ DIVISIONS OF BANGALORE
+    </p>
+{% endif %}
+
+
+<div class="traffic-info" style="margin-left:4%">
+{% set traffic = pimcore_relation("traffic").element %} 
+    {% if traffic %} 
+        {# <b style="color:green;">{{ traffic.Caption|raw }}</b> #}
+    {% endif %}
+
+{# DATE editable #}
+        <h3 style="animation: blinker 1.5s linear infinite;color:red;">     
+       {{ pimcore_date('myDate', {
+            'format': 'd.m.Y',
+            'outputFormat': '%d.%m.%Y'
+            })
+        }}
+        </h3> 
+
+<h3 style="animation: blinker 1.5s linear infinite;color:red;"> Updates !!!! </h3>
+ <br>
+ {# IMAGE editable #}
+<br>
+<div>
+{{ pimcore_image("myNewImage", {
+    "title": "Drag your image here",
+    "width": 200,
+    "height": 200,
+    "thumbnail": "content"
+}) }}
+</div>
+<br>
+
+
+<div class="row">
+    <div class="col-sm-6">
+{{ pimcore_image("myImage", {
+
+    "width": 100,
+    "height": 100,
+    "thumbnail": "content",
+    }) }}
+ </div>
+
+ <div class="col-sm-6" style="margin-left: 88%;margin-top: -20%;">
+
+    {{ pimcore_image("myImage1", {
+    "width": 100,
+    "height": 100,
+    "thumbnail": "content",
+    }) }}   
+</div>
+</div>
+<br><br>
+
+{# EMBED editable #}
+<div class="row">
+<div class="col-sm-6">
+{{ pimcore_embed("socialWidgets", { "width": 400 }) }}
+</div>
+
+{# CHECKBOX editable #}
+<div class="col-sm-6">
+  {{ pimcore_checkbox("enablewhatsappno", {
+    "label": "Enable whatsapp number section"
+  }) }}
+
+
+{% if pimcore_checkbox("enablewhatsappno").isChecked() %}
+ <p>
+    {{ pimcore_image("myImage2", {
+    "width": 100,
+    "height": 100,
+    "thumbnail": "content",
+    }) }}   
+ </p>  
+{% endif %}
+</div>
+</div>
+{# RELATION editable #}
+{% if editmode %}
+            {{ pimcore_relation("traffic") }}
+        {% else %}
+            {% set traffic = pimcore_relation("traffic").element %} 
+            {% if traffic %} 
+                <div class="content">
+                 {# {{ traffic.Caption|raw }} #}
+                    {% if traffic.trafficimage %}
+                        {{ traffic.trafficimage.thumbnail("content").html|raw }}
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+<br>
+<br>
+{# TABLE editable #}
+
+<div class="row">
+    <div class="col-sm-6">
+    {{ pimcore_table("productProperties", {
+        "width": 700,
+        "height": 400,
+        "defaults": {
+            "cols": 2,
+            "rows": 3,
+            "data": [
+                ["Attribute name", "Value"],
+             
+            ]
+        },
+        "class": "table-bordered"
+    })}}
+    
+    </div>
+
+{# PDF editable #}
+
+    <div class="col-sm-6">
+    
+     {{ pimcore_pdf("myPdf", {
+    "width": 640,
+    "height": 400,
+    "imageView": false
+  }) }}
+    </div>
+   
+  </div>
+{# 
+<section id="renderlet-gallery">
+    {{
+        pimcore_renderlet('myGallery', {
+            "controller" : "App\\Controller\\ContentController::myGalleryAction",
+            "title" : "Drag an asset folder here to get a gallery",
+            "height" : 400
+        })
+    }}
+</section> #}
+
+{# TEXTAREA editable #}
+
+<div style="font-size: 168%;">
+
+<p style="animation: blinker 1.5s linear infinite;color:red;" >INSTRUCTIONS</p>
+<p class="traffic-description" style="font-size: 100%;
+  border: solid;">
+    {{ pimcore_textarea("traffic_description",{
+        "nl2br": true,
+        "height": 300,
+        "placeholder": "Description"
+    }) }}
+</p>
+</div>
+
+
+
+<br>
+
+{# {% for i in pimcore_scheduledblock('block').iterator %}
+    <h2>{{ pimcore_input('blockinput') }}</h2>
+    {{ pimcore_image('myimage') }}
+{% endfor %} #}
+
+
+{% endblock %}
