@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+{% set image = pimcore_asset(11) %}
+
+{# get path to thumbnail, e.g. `/foo/bar/362/image-thumb__362__content/foo.webp #}
+<img src="{{ image.thumbnail('Transformations') }}">
+
+{# preferred alternative - let Pimcore create the whole image tag #}
+{# including high-res alternatives (srcset) or media queries, if configured #}
+{# {{ image.thumbnail('Transformations').html|raw }} #}
+
+{% if videoAsset %}
+    <video controls>
+        <source src="{{ videoAsset.getData() }}" type="{{ videoAsset.getMimeType() }}">
+        Your browser does not support the video tag.
+    </video>
+{% else %}
+    No video available.
+{% endif %}
+
+
+
+
+
+{% endblock %}

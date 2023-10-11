@@ -2,17 +2,18 @@
 
 namespace App\Controller;
 
-use App\Website\TestGenerator;
+// use App\Website\TestGenerator;
 use Pimcore\Controller\FrontendController;
 use Symfony\Bridge\Twig\Attribute\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Pimcore\Model\Asset;
+use Pimcore\Model;
 use Pimcore\Model\DataObject\Block;
 use Pimcore\Model\DataObject\Product;
 use Pimcore\Model\DataObject\Incident;
 use Pimcore\Model\DataObject\Location;
-
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Pimcore\Model\DataObject;
 
@@ -25,7 +26,7 @@ class ContentController extends FrontendController
         return [];
     }
 
-
+    
     public function productAction(Request $request): Response
     {
       
@@ -33,15 +34,31 @@ class ContentController extends FrontendController
       
         // $link = $linkid->getHref();
         
-        // var_dump($link);
-        // die;
+     
         return $this->render('content/product.html.twig');
     }
 
-
+    #[Route('/products/watch/{sku}/{name}')]
+    public function productLink(Request $request, string $sku, string $name ): Response
+    {
+     
+        return $this->render('content/link.html.twig', [
+            'sku' => $sku,
+            'name' => $name,
+           
+            ]);
+    }
 
     public function TrafficAction(Request $request): Response
     {
+        $locale = $request->getLocale(); 
+        $language = $this->document->getProperty("language");
+        $doc = \Pimcore\Model\Document::getById(1);
+        $language = $doc->getProperty("language");
+        // echo '<pre>';
+        // print_r($language);
+        // echo '</pre>';
+        // die;
         return $this->render('content/traffic.html.twig');
     }
 
@@ -78,21 +95,31 @@ class ContentController extends FrontendController
     #[Route('/testblock',name:'test_render')]
     public function BlogAction(Request $request): Response
     {
-        // var_dump("hiii");
+       
+        //TO FETCH THE TRANSLATED LANGUAGE
+        $locale = $request->getLocale(); 
+ 
+        $language = $this->document->getProperty("language");
+        
+        $doc = \Pimcore\Model\Document::getById(10);
+       
+        $language = $doc->getProperty("language");
+
+
+        //echo '<pre>';
+        // print_r($language);
+        // echo '</pre>';
         // die;
+
+        $dataToPass = [];
+        $fieldToPass = [];
+        //setting DATA OF OBJECT BRICK using API
+        $object = Block::getById(6);
 
         // echo '<pre>';
         // print_r($object);
         // echo '</pre>';
         // die;
-
-
-        $dataToPass = [];
-        $fieldToPass = [];
-
-
-        //setting DATA OF OBJECT BRICK using API
-        $object = Block::getById(6);
         $object->getVehic()->getVehicledef()->setColor("Grey");
         $object->save();
 
@@ -156,8 +183,7 @@ class ContentController extends FrontendController
 
 
         return $this->render('content/block.html.twig', [
-            'blockData' => $blockData,'dataToPass' => $dataToPass , 'fieldToPass' => $fieldToPass , 'object'  => $object,
-        ]);
+            'blockData' => $blockData,'dataToPass' => $dataToPass , 'fieldToPass' => $fieldToPass , 'object'  => $object , 'language' => $language]);
     }
 
 
@@ -176,6 +202,19 @@ class ContentController extends FrontendController
     }
 
 
+ public function ImageGalleryAction(Request $request, TranslatorInterface $translator): Response
+ {
+    $videoAsset = Asset::getById(39);
+    // echo "<pre>";
+    // print_r($video);
+    // echo "</pre>";
+    // die;
+     $translatedLegalNotice = $translator->trans("legal_notice");
+        $siteName = "Demo"; // or get dynamically
+        // variable interpolation, 'about' translates to 'About {{siteName}}'
+        $translatedAbout = $translator->trans("about", ['siteName' => $siteName]);
+    return $this->render('content/gallery.html.twig',['videoAsset' => $videoAsset]);
 
+ }
 
 }

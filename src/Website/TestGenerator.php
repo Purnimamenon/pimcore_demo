@@ -1,36 +1,31 @@
 <?php
-namespace App\Website\TestGenerator;
+namespace App\Website;
 
-
-
-use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\ClassDefinition\LinkGeneratorInterface;
+use Pimcore\Model\DataObject\Concrete;
+use Pimcore\Model\DataObject\Product;;
 
-
-
-class TestGenerator implements LinkGeneratorInterface
-{
- public function generate($object, array $params = []): string
- {
- if (!($object instanceof DataObject\Product)) {
- throw new \InvalidArgumentException('Given object is not a Room');
- }
-
- $customUrl = $this->generateCustomUrl($object);
-
- return $customUrl;
- }
-
- public function generateCustomUrl(DataObject\Product $object): string
- {
- $product = $object->getSku();
- $name = $object->getName();
-
- $customUrl = '/'.$product.'/'.$name;
-
- 
- return $customUrl;
-
-
- }
+class TestGenerator implements LinkGeneratorInterface {
+    public function generate(object $object, array $params = []): string
+    {
+    if (!$object instanceof Product) {
+    throw new \InvalidArgumentException('Invalid object type. Expected Product.');
+    }
+   
+    // Use the SKU and name of the product to generate a URL.
+    $sku = $object->getSku();
+    $name = $object->getName();
+   
+    $slug = $this->generateSlug($sku, $name);
+   
+    // Return the generated URL.
+    return '/products/' . $slug;
+    }
+   
+    protected function generateSlug($sku, $name)
+    {
+  
+    return strtolower('watch/' . $sku . '/'. $name);
+    
+    }
 }

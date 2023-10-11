@@ -18,7 +18,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'title' => '',
    'description' => '',
    'creationDate' => NULL,
-   'modificationDate' => 1696938233,
+   'modificationDate' => 1697001692,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -220,7 +220,7 @@ return \Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'group' => '',
    'showAppLoggerTab' => false,
    'linkGeneratorReference' => '@App\\Website\\TestGenerator',
-   'previewGeneratorReference' => '',
+   'previewGeneratorReference' => '@App\\Service\\PreviewParamProvider\\ProductPreviewParamProvider',
    'compositeIndices' => 
   array (
   ),

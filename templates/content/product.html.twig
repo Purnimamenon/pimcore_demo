@@ -8,7 +8,7 @@
         {% else %}
             {% set product = pimcore_relation("product").element %} 
             {% if product %} 
-                <h2>{{ product.name }}</h2>
+                <h2>{{ product.name|trans }}</h2>
                 <div class="content">
                     {% if product.picture %}
                         {{ product.picture.thumbnail("content").html|raw }}
@@ -20,9 +20,6 @@
                    
                 </div>
 
-    <ul>
-        {# <li><a href=" {{ link }}"> {{ link }}</a></li> #}
-    </ul>
             {% endif %}
         {% endif %}
     </div>

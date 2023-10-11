@@ -3,6 +3,11 @@ imports:
 
 
 pimcore:
+    documents: 
+        auto_save_interval: 60 # saving interval in seconds, default 60s, set to 0 to disable it
+    
+    objects: 
+        auto_save_interval: 60 # saving interval in seconds, default 60s, set to 0 to disable it
 
 # IMPORTANT Notice!
 # Following there are only some examples listed, for a full list of possible options, please run the following command:

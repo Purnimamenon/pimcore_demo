@@ -31,7 +31,7 @@ parameters:
 
 services:
     AppBundle\Helpers\CustomRenderer:
-        class: AppBundle\Helpers\CustomRenderer
+        class: AppBundle\Helpers\CustomRenderer 
         public: true
     # default configuration for services in *this* file
     _defaults:
@@ -78,4 +78,7 @@ services:
     #         - { name: kernel.event_listener, event: pimcore.dataobject.preUpdate, method: onObjectPreUpdate }
     ## link generators ###
     App\Website\TestGenerator:
+        public: true
+
+    App\Service\PreviewParamProvider\ProductPreviewParamProvider:
         public: true

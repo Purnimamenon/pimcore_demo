@@ -15,6 +15,17 @@ pimcore:
                                 method: setBackgroundColor
                                 arguments:
                                     color: '#ff6600'
+                            -
+                                method: roundCorners
+                                arguments:
+                                    width: 10
+                                    height: 10
+                            -
+                                method: contain
+                                arguments:
+                                    width: 450
+                                    height: 450
+                                    forceResize: false
                         medias: {  }
                         name: Transformations
                         description: ''
@@ -26,6 +37,6 @@ pimcore:
                         preserveMetaData: false
                         rasterizeSVG: false
                         downloadable: false
-                        modificationDate: 1696940991
+                        modificationDate: 1697004397
                         creationDate: 1696939935
                         preserveAnimation: false

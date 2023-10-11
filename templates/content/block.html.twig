@@ -26,6 +26,9 @@
 
     </div>
 
+{# {% set documentLanguage = document.getProperty('language') %} #}
+
+
    {% if blockData is iterable %}
     <ul style="background-color: white;">
         {% for blockItem in blockData %}
@@ -128,12 +131,31 @@
                     {% endif %}
 
             </li>
-        {% endfor %}
+ 
+<br>
+<br>
+
+{# Language Translation #}
+{% set localfields = blockItem['localizedfields'].data %}
+
+                    {% if localfields is defined and language is defined %}
+                         {% set translation = localfields.items[language].translate ?? '' %}
+    <p style="font-size:170%">  Translated Word: <b>{{ translation }}</b></p>
+{% else %}
+  <p>  <b> Translation not available</b> </p>
+{% endif %}
+{# {{ dump(localfields.items[language].translate) }} #}
+
+
+{% endfor %}
     </ul>
 {% else %}
     <p>No block data available.</p>
 {% endif %}
+
 <br><br>
+<br><br>
+
 
 {% for group in dataToPass %}
         <h1 style="color: red;">Classification Name: {{ group.configurationName }}</h1>

@@ -2,6 +2,7 @@
 {% extends 'menu.html.twig' %}
 
 {% block content %}
+{# {% set documentLanguage = document.getProperty('language') %} #}
 
 {% if not document is defined or not document %}
     {% set document = pimcore_document(1) %}
